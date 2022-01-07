@@ -25,7 +25,7 @@ apt-cache policy kubelet | head -n 20
 
 #Install the required packages, if needed we can request a specific version. 
 #Pick the same version you used on the Control Plane Node in 0-PackageInstallation-docker.sh
-VERSION=1.21.0-00
+VERSION=1.21.6-00
 sudo apt-get install -y docker.io kubelet=$VERSION kubeadm=$VERSION kubectl=$VERSION 
 sudo apt-mark hold docker.io kubelet kubeadm kubectl
 

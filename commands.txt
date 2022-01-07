@@ -1,0 +1,21 @@
+Enable SSH on Ubuntu 20.04
+sudo apt update -y
+sudo apt install curl -y
+sudo apt install openssh-server -y
+sudo systemctl status ssh
+sudo ufw allow ssh
+
+sudo systemctl disable --now ssh
+sudo systemctl enable --now ssh
+
+Edit hostname
+sudo nano /etc/hostname
+
+c4-cp1
+
+c4-node1
+
+c4-node2
+
+sudo apt -y update
+sudo apt -y upgrade

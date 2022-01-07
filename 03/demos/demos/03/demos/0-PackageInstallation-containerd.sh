@@ -11,8 +11,8 @@ ssh aen@c1-cp1
 
 #0 - Disable swap, swapoff then edit your fstab removing any entry for swap partitions
 #You can recover the space with fdisk. You may want to reboot to ensure your config is ok. 
-swapoff -a
-vi /etc/fstab
+sudo swapoff -a
+sudo nano /etc/fstab
 
 
 ###IMPORTANT####
@@ -47,7 +47,7 @@ sudo sysctl --system
 
 
 #Install containerd
-sudo apt-get update 
+sudo apt-get update -y
 sudo apt-get install -y containerd
 
 
@@ -68,7 +68,7 @@ sudo containerd config default | sudo tee /etc/containerd/config.toml
 #change it from SystemdCgroup = false to SystemdCgroup = true
             SystemdCgroup = true
 
-sudo vi /etc/containerd/config.toml
+sudo nano /etc/containerd/config.toml
 
 
 #Restart containerd with the new configuration
@@ -79,6 +79,7 @@ sudo systemctl restart containerd
 
 #Install Kubernetes packages - kubeadm, kubelet and kubectl
 #Add Google's apt repository gpg key
+cd Desktop
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
 
@@ -89,13 +90,13 @@ EOF'
 
 
 #Update the package list and use apt-cache policy to inspect versions available in the repository
-sudo apt-get update
-apt-cache policy kubelet | head -n 20 
+sudo apt-get update -y
+apt-cache policy kubelet | head -n 50 
 
 
 #Install the required packages, if needed we can request a specific version. 
 #Use this version because in a later course we will upgrade the cluster to a newer version.
-VERSION=1.21.0-00
+VERSION=1.21.6-00
 sudo apt-get install -y kubelet=$VERSION kubeadm=$VERSION kubectl=$VERSION
 sudo apt-mark hold kubelet kubeadm kubectl containerd
 

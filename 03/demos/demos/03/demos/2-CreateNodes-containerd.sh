@@ -4,8 +4,8 @@ ssh aen@c1-node1
 
 #Disable swap, swapoff then edit your fstab removing any entry for swap partitions
 #You can recover the space with fdisk. You may want to reboot to ensure your config is ok. 
-swapoff -a
-vi /etc/fstab
+sudo swapoff -a
+sudo nano /etc/fstab
 
 
 ###IMPORTANT####
@@ -40,7 +40,7 @@ sudo sysctl --system
 
 
 #Install containerd
-sudo apt-get update 
+sudo apt-get update -y
 sudo apt-get install -y containerd
 
 
@@ -61,7 +61,7 @@ sudo containerd config default | sudo tee /etc/containerd/config.toml
 #change it from SystemdCgroup = false to SystemdCgroup = true
             SystemdCgroup = true
 
-sudo vi /etc/containerd/config.toml
+sudo nano /etc/containerd/config.toml
 
 
 #Restart containerd with the new configuration
@@ -81,13 +81,13 @@ EOF'
 
 
 #Update the package list 
-sudo apt-get update
-apt-cache policy kubelet | head -n 20 
+sudo apt-get update -y
+apt-cache policy kubelet | head -n 50 
 
 
 #Install the required packages, if needed we can request a specific version. 
 #Pick the same version you used on the Control Plane Node in 0-PackageInstallation-containerd.sh
-VERSION=1.21.0-00
+VERSION=1.21.6-00
 sudo apt-get install -y kubelet=$VERSION kubeadm=$VERSION kubectl=$VERSION
 sudo apt-mark hold kubelet kubeadm kubectl containerd
 
@@ -138,6 +138,8 @@ sudo kubeadm join 172.16.94.10:6443 \
   --token xguxr9.zungfo8srvsxwk3h     \
   --discovery-token-ca-cert-hash sha256:0735b1db947bcdc68e01feb38d9f1e16a02d26251c95908576ea2be31cd14946 
 
+sudo kubeadm join 192.168.2.38:6443 --token xxx.xxx \
+        --discovery-token-ca-cert-hash sha256:xxx
 
 #Log out of c1-node1 and back on to c1-cp1
 exit
