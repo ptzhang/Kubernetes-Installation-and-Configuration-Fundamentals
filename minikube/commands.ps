@@ -55,3 +55,24 @@ kubectl get nodes
 kubectl get pods
 kubectl get pods --all-namespaces -o wide
 
+kubectl get services
+
+kubectl create deployment nginx-deployment --image=nginx
+kubectl get deployment
+kubectl get pods
+kubectl edit deployment nginx-deployment
+
+kubectl create deployment mongo-depl --image=mongo
+kubectl get pod
+kubectl logs mongo-depl-5fd6b7d4b4-bxkjv
+
+kubectl exec -it mongo-depl-5fd6b7d4b4-bxkjv -- bin/bash
+kubectl exec -it nginx-deployment-6767546888-9nvwl -- ls /
+
+kubectl get deployment
+kubectl delete deployment mongo-depl
+kubectl delete deployment nginx-deployment
+
+# In practice
+kubectl apply -f nginx-deployment.yaml
+
