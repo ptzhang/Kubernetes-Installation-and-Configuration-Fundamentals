@@ -12,10 +12,29 @@ Edit hostname
 sudo nano /etc/hostname
 
 c4-cp1
-
 c4-node1
 
 c4-node2
 
 sudo apt -y update
 sudo apt -y upgrade
+
+
+https://fabiofernandesx.medium.com/preparing-virtual-box-vms-to-run-kubernetes-a31c7c851566
+
+* Static IP
+cd /etc/netplan
+sudo nano 01-netcfg.yaml
+
+network: 
+  version: 2
+  renderer: networkd
+  ethernets: 
+    enp0s8: 
+      dhcp4: no
+      addresses: [192.168.92.100/24]
+      gateway4: 192.168.92.1
+      nameservers: 
+        addresses: [1.1.1.1, 8.8.8.8]
+
+sudo netplan apply
